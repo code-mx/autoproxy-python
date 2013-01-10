@@ -1,0 +1,10 @@
+<proxylist>
+    <wip ip="001">
+        <pip>127.0.0.1</pip>
+        <port>80</port>
+    </wip>
+    <wip ip="002">
+        <pip>127.0.0.2</pip>
+        <port>8080</port>
+    </wip>
+</proxylist>
