@@ -11,29 +11,33 @@ def read_xml(path):
 def write_xml(tree,path):
     tree.write(path, encoding="utf-8",xml_declaration=True)
 
-#def insert_xml(tree,path)
-
 def change_xml(tree,wip,pip):
 #    print 'print the getroot ele'
 #    print tree.getroot()
     root=tree.getroot()
-    for ele in root:
-        print 'start debug'
-        print ele.attrib
-        print 'print the attrib value'
-        print ele.attrib['ip']
-        #此处逻辑处理有问题，功能实现已解决
-        if ele.attrib['ip']==wip:
-            ele.text=pip
-        else:
-            ele=ET.Element('wip')
-            ele.text=pip
-            ele.set('ip',wip)
+#    print 'print the debug of getwip() info'
+#    print getwip(tree)
+    if wip in getwip(tree):
+        for ele in root:
+#            print 'equle'
+#            print ele.attrib['ip']==wip
+            if ele.attrib['ip']==wip:
+#                print 'start debug'
+#                print ele.attrib
+#                print 'print the attrib value'
+#                print ele.attrib['ip']
+                ele.text=pip
+    else:
+#        print 'add the net wip'
+        add=ET.Element('wip')
+        add.text=pip
+        add.set('ip',wip)
+        root.append(add)
 #            wipl=tree.getroot()
 #            print 'print the wipl type'
 #            print wipl
-            root.append(ele)
-        return tree
+    return tree
+
 
 
 #需要进一步调试
