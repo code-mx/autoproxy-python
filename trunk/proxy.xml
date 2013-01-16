@@ -7,7 +7,15 @@ this xml is for proxy
     <wip ip="127.0.0.2">
         127.10.0.2
     </wip>
+<<<<<<< .mine
+<<<<<<< .mine
     <wip ip="10.0.0.1">
         10.0.0.10
     </wip>
-<wip ip="12.3.1">2134</wip><wip ip="12.3.1.3">2134</wip><wip ip="12.3.1">2134</wip></proxylist>
+<wip ip="12.3.1">2134</wip><wip ip="12.3.1.3">192.164.1.3</wip></proxylist>=======
+</proxylist>>>>>>>> .r4
+=======
+    <wip ip="10.0.0.1">
+        10.0.0.10
+    </wip>
+<wip ip="12.3.1">2134</wip><wip ip="12.3.1.3">2134</wip><wip ip="12.3.1">2134</wip></proxylist>>>>>>>> .r5
