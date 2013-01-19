@@ -86,8 +86,24 @@ def getpip(tree,ip):
         if ele.attrib['ip']==ip:
             return ele.text
 
-#def find_nodes(tree,path):
-#    return tree.findall(path)
+#显示所有配置项和对应的值
+#2013-01-20 00:53完成，有待进一步改进
+def show(tree):
+    root=tree.getroot()
+#    m=1
+    keys={}
+    for ele in root:
+#        print ele.attrib['ip']
+#        print ele.text
+        wip=ele.attrib['ip']
+        pip=ele.text
+        #此处有问题，需要修改
+#        keys[ele.attrib]=ele.text
+        keys[wip]=pip
+#        print '-----%d-------'% m
+#        m=m+1
+#        print keys
+    return keys
 
 if __name__ == '__main__':
     path01=r"f:/python/proxy.xml"
@@ -103,7 +119,8 @@ if __name__ == '__main__':
     print getpip(tree01,'127.0.0.2')
 
     print 'debug del model'
-    del_xml(tree01,'12.3.1')
-
-    change_xml(tree01,'12.3.1','2134')
-    write_xml(tree01,path01)
+#    del_xml(tree01,'12.3.1')
+#
+#    change_xml(tree01,'12.3.1','2134')
+#    write_xml(tree01,path01)
+    print show(tree01)

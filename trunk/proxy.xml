@@ -1,13 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <proxylist version="1.0">
 this xml is for proxy
-    <wip ip="127.0.0.1">
-        127.0.0.1
-    </wip>
-    <wip ip="127.0.0.2">
-        127.10.0.2
-    </wip>
-    <wip ip="10.0.0.1">
-        10.0.0.10
-    </wip>
+<wip ip="127.0.0.1">127.0.0.10</wip>
+<wip ip="127.0.0.2">127.10.0.20</wip>
+<wip ip="10.0.0.1">10.0.0.10</wip>
 </proxylist>

@@ -10,18 +10,17 @@ m=1
 for ele in root:
     print 'print the %d th  elems tag:'% m
     print ele.tag
-    print '\r\n'
+
     print 'print the %d elems text:'% m
     print ele.text
-    print '\r\n'
+
     print 'print the %d th      elems attrib'% m
     print ele.attrib
-    print '\r\n'
+
     print 'print the %d th  elems attrib  ip value'% m
     #attrib返回一个字典，用来表示属性和属性的值
-    print ele.attrib
     print ele.attrib['ip']
-    print '\r\n'
+
     print 'print the children elems'
     print ele.getchildren()
     print '================================='
