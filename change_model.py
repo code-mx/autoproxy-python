@@ -1,5 +1,9 @@
 #! /usr/bin/env python
 #coding=utf-8
+# Filename: change_model.py\
+#Author: shuichon
+#Email:shuichon@qq.com
+
 from xml.etree import ElementTree as ET
 
 def change_xml(tree,wip,pip):
