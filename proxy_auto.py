@@ -173,6 +173,7 @@ if __name__ == '__main__':
 				print('have del the '+ip+'--'+pyip+' from the xml')
 			elif option=='show':
 				print('nothing')
+				print p_xml.show(tree)
 		#假如携带的参数不正确，则提示
 		else:
 			print('''	Unknown option !
