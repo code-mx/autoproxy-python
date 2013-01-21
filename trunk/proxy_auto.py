@@ -3,7 +3,7 @@
 # Filename: proxy_auto.py\
 #Author: shuichon
 #Email:shuichon@qq.com
-#Version:3.0
+#Version:2.5
 '''
 设计理念：
 通过控制台参数，实现根据主机网络环境进行自动代理切换
@@ -12,6 +12,9 @@
 代理服务器地址pip包括，proxy_ip:proxy_port
 主机网络环境主要为work_ip
 根据host_ip的值，设置相对应的IE代理，如果无匹配的值，则禁用代理
+'''
+'''
+本版本采用INI配置文件
 '''
 
 import io, sys, time,os,socket
