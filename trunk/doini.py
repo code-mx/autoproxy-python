@@ -44,16 +44,17 @@ def ini_del(workip):
     except Exception as e:
         print "erro"+str(e)
 
-def ini_show(sections):
-    keys=config.options(sections)
-    return keys
-
+def ini_show(sections,*forv):
+    if forv:
+        keys=config.options(sections)
+        return keys
+    else:
+        print 'the wip list is :',keys
+        v=config.items(sections)
+        print ('items is ',v)
 
 
 if __name__ == '__main__':
-    config = ConfigParser.ConfigParser()
-    config.read('proxy.ini')
-    sections=config.sections()
     #输出所有section
     print('section is ',sections)
 
@@ -66,8 +67,11 @@ if __name__ == '__main__':
     print('key is ',key)
 
     print sections
-    ini_add('proxylist','wip0','0')
+    ini_add('wip0','0')
     ini_get('wip3')
     ini_del('1')
     ini_del('wip2')
+    print 'two args debug but no *args'
     ini_show('proxylist')
+    print 'two (*args)args debug '
+    ini_show('proxylist',True)
