@@ -30,7 +30,7 @@ print '''
 
 #获取当前IP地址
 ip=(socket.gethostbyname(socket.gethostname()))
-print('now ip is '+ip)
+print('	now ip is '+ip)
 
 #设置代理设置路径
 xpath = "Software\Microsoft\Windows\CurrentVersion\Internet Settings"
@@ -43,7 +43,7 @@ key = _winreg.OpenKey(_winreg.HKEY_CURRENT_USER, xpath, 0, _winreg.KEY_WRITE)
 
 
 #需要返回的值，需要修改
-work_ip=doini.ini_show('proxylist')
+work_ip=doini.ini_show('proxylist',True)
 
 #检查当前IP是否已经在work_ip列表内，返回bool值
 def chkhave(m):
@@ -66,12 +66,12 @@ def chkip(s):
         return False
 
 #判断参数是否合法，返回bool值
-def chkargv():
-	#修改判断方式，主要是针对argv[3]，此处需要进一步优化
-	if chkip(sys.argv[2]):
-		return True
-	else:
-		return False
+#def chkargv():
+#	#修改判断方式，主要是针对argv[3]，此处需要进一步优化
+#	if chkip(sys.argv[2]):
+#		return True
+#	else:
+#		return False
 
 #切换至相应代理(此处n为work_ip)
 def swithpy(n):
@@ -99,8 +99,8 @@ if __name__ == '__main__':
 				_winreg.SetValueEx(key, "ProxyEnable", 0, _winreg.REG_DWORD, 0)
 				_winreg.SetValueEx(key, "ProxyServer", 0, _winreg.REG_SZ, proxy)
 				print('''
-			work_ip don't have this ip address!
-			please input '--help' behind the script.''')
+	work_ip don't have this ip address!
+	please input '--help' behind the script.''')
 			except Exception as e:
 				print("ERROR: " + str(e.args))
 			finally:
@@ -108,25 +108,27 @@ if __name__ == '__main__':
 	#程序携带参数运行
 	else:
 		#判断参数是否以‘--’开始，并且判断参数是否合法，然后继续操作
-		if sys.argv[1].startswith('--') and chkargv():
+		if sys.argv[1].startswith('--'):
 			#取得argv参数列表内的第二个参数，去除前两个字符“--”
 			option=sys.argv[1][2:]
 
 			#假如键入的参数是‘version’
 			if option=='version':
-				print('''Proxy_auto 2.0 python script by shuichon''')
+				print('''Proxy_auto 2.5 python script by shuichon''')
 			elif option=='help':
 				print('''
-				This program prints files to the standard output.
-				Any number of files can be specified.
-				Options include:
-				--version : The version number of the pychon script
-				--help    : Display this help
-				--add     : Add using ip to using ip poor
-					   exp:proxy_auto --add [work_ip] [proxy_ip:proxy_prot]
-				--del     : Del unusing ip from using ip poor
-					   exp:proxy_auto --dell [work_ip]
-				--show    :show the list of all
+		=================================================================
+		| This program prints files to the standard output.             |
+		| Any number of files can be specified.                         |
+		| Options include:                                              |
+		| --version : The version number of the pychon script           |
+		| --help    : Display this help                                 |
+		| --add     : Add using ip to the ini                           |
+		|        exp:proxy_auto --add [work_ip] [proxy_ip:proxy_prot]   |
+		| --del     : Del unusing ip from ini                           |
+		|        exp:proxy_auto --dell [work_ip]                        |
+		| --show    :show the list of ini                               |
+		=================================================================
 				''')
 			#假如是要进行添加操作
 			elif option=='add':
@@ -140,10 +142,11 @@ if __name__ == '__main__':
 				print('have add the '+pyip+' to the xml')
 			#删除操作
 			elif option=='del':
-				doini.ini_del(ip)
-				print('have del the '+ip+' config from the xml')
+				wip=sys.argv[2]
+				doini.ini_del(wip)
+				print('have del the '+wip+' config from the xml')
 			elif option=='show':
-				print('debug')
+				doini.ini_show('proxylist')
 		#假如携带的参数不正确，则提示
 		else:
 			print('''	Unknown option !
