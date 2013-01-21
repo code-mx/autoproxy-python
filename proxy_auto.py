@@ -17,16 +17,16 @@
 本版本采用INI配置文件
 '''
 
-import io, sys, time,os,socket
-import _winreg,p_xml
+import io, sys, time,os,socket,ConfigParser
+import _winreg,doini
 #复杂字符串分析，为chkip()模块提供支持
 import re
 
 #输出程序说明
 print '''
-	proxy_auto 3.0 python script by shuichon
+	proxy_auto 2.5 python script by shuichon
 	Email:shuichon@qq.com
-	Version:3.0'''
+	Version:2.5'''
 
 #获取当前IP地址
 ip=(socket.gethostbyname(socket.gethostname()))
@@ -36,19 +36,15 @@ print('now ip is '+ip)
 xpath = "Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 key = _winreg.OpenKey(_winreg.HKEY_CURRENT_USER, xpath, 0, _winreg.KEY_WRITE)
 
-#声明下面需要用到path和tree
-path=r"f:/python/proxy.xml"
-tree=p_xml.read_xml(path)
+#INI文件操作
+#config = ConfigParser.ConfigParser()
+#config.read('proxy.ini')
+#sections=config.sections()
 
-#2013-01-19已完成，待调试
-#待实现。思路，通过p_xml获取到已经存在代理设置的work_ip列表
-work_ip=[]
-work_ip=p_xml.getwip(tree)
 
-#临时使用
-tmpip=''
+#需要返回的值，需要修改
+work_ip=doini.ini_show('proxylist')
 
-#思路：删除上面的work_ip列表，直接由p_xml返回work_ip列表
 #检查当前IP是否已经在work_ip列表内，返回bool值
 def chkhave(m):
 	for i in work_ip:
@@ -80,7 +76,7 @@ def chkargv():
 #切换至相应代理(此处n为work_ip)
 def swithpy(n):
 	#获得该IP对应的pyip
-	proxy=p_xml.getpip(tree,ip)
+	proxy=doini.ini_get(n)
 	try:
 		_winreg.SetValueEx(key, "ProxyEnable", 0, _winreg.REG_DWORD, 1)
 		_winreg.SetValueEx(key, "ProxyServer", 0, _winreg.REG_SZ, proxy)
@@ -93,6 +89,7 @@ def swithpy(n):
 
 #进入主程序
 if __name__ == '__main__':
+
 	#假如直接运行程序，没有任何参数，则进行一下操作
 	if len(sys.argv)<2:
 		if chkhave(ip)==False:
@@ -137,15 +134,16 @@ if __name__ == '__main__':
 				wip=sys.argv[2]
 				#传入新增proxy代理的pip参数
 				pyip=sys.argv[3]
-				p_xml.change_xml(tree,ip,pyip)
+#				print 'debug'
+#				print wip+pyip
+				doini.ini_add(wip,pyip)
 				print('have add the '+pyip+' to the xml')
 			#删除操作
 			elif option=='del':
-				p_xml.delxml(tree,ip)
+				doini.ini_del(ip)
 				print('have del the '+ip+' config from the xml')
 			elif option=='show':
 				print('debug')
-				print p_xml.show(tree)
 		#假如携带的参数不正确，则提示
 		else:
 			print('''	Unknown option !
